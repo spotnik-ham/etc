@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# DTMF 99#
+
+pkill -TERM svxlink
+
+sleep 2
+
+ # On regle les niveaux audio
+
+amixer -c 0 cset numid=6 98%
+
+sleep 1
+
+amixer -c 0 cset numid=4 12%
+
+sleep 1
+
+
+screen -dmS "svxlink" svxlink --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.echo
+echo "echo"> /etc/spotnik/network
+
+
