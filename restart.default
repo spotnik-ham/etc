@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Stop svxlink
+pkill -TERM svxlink
+sleep 2
+
+# Save network
+echo "default" > /etc/spotnik/network
+
+# Set audio levels
+amixer -c 0 cset numid=6 78%
+sleep 1
+amixer -c 0 cset numid=4 12%
+sleep 1
+
+# Clear logs
+rm -f /tmp/svxlink.log
+
+# Launch svxlink
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.default
+sleep 1
+
+# Enable status
+echo "*#" > /tmp/svxlink_dtmf_ctrl_pty
+# Enable Say Ip Address
+echo "93#" > /tmp/svxlink_dtmf_ctrl_pty
