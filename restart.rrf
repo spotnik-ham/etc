@@ -15,11 +15,11 @@ sleep 1
 amixer -c 0 cset numid=4 12%
 sleep 1
 
-# Launch svxlink in a screen session
-# -c sets the screen config file
-# -L enables logging
-# -dmS runs in daemon mode
-screen -c /etc/spotnik/screenrc -L -dmS "svxlink" svxlink --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.rrf
+# Clear logs
+rm -f /tmp/svxlink.log
+
+# Launch svxlink
+svxlink --daemon --log-file=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.rrf
 sleep 1
 
 # Enable propagation monitor module

@@ -23,6 +23,7 @@ MACROS=Macros
 FX_GAIN_NORMAL=-6
 FX_GAIN_LOW=-12
 ACTIVATE_MODULE_ON_LONG_CMD=2:EchoLink
+DTMF_CTRL_PTY=/tmp/svxlink_dtmf_ctrl_pty
 
 [Rx1]
 TYPE=Local

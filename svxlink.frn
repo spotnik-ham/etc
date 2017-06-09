@@ -21,6 +21,7 @@ REPORT_CTCSS=71.9
 TX_CTCSS=ALWAYS
 FX_GAIN_NORMAL=-6
 FX_GAIN_LOW=-12
+DTMF_CTRL_PTY=/tmp/svxlink_dtmf_ctrl_pty
 
 [Rx1]
 TYPE=Local

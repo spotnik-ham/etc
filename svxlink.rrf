@@ -25,7 +25,7 @@ FX_GAIN_NORMAL=0
 FX_GAIN_LOW=-12
 ACTIVATE_MODULE_ON_LONG_CMD=10:PropagationMonitor
 MUTE_RX_ON_TX=1
-CTCSS_FQ=undefined
+DTMF_CTRL_PTY=/tmp/svxlink_dtmf_ctrl_pty
 
 [ReflectorLogic]
 TYPE=Reflector
