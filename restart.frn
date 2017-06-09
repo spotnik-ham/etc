@@ -16,11 +16,11 @@ amixer -c 0 cset numid=4 12%
 sleep 1
 
 # Clear logs
-rm -f /tmp/svxlink.log
+> /tmp/svxlink.log
 
 # Launch svxlink
 svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.frn
-sleep 1
+sleep 2
 
 # Enable propagation monitor module
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
