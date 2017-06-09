@@ -19,8 +19,8 @@ sleep 1
 rm -f /tmp/svxlink.log
 
 # Launch svxlink
-svxlink --daemon --log-file=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.frn
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.frn
 sleep 1
 
 # Enable propagation monitor module
-screen -x svxlink -X stuff "10#"
+echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
