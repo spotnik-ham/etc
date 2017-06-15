@@ -10,5 +10,8 @@
   "echolink_password": "",
   "mail_server": "",
   "mail_username": "",
-  "mail_password": ""
+  "mail_password": "",
+  "location_enabled": false,
+  "location_latitude": "",
+  "location_longitude": ""
 }
