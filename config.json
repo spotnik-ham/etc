@@ -13,5 +13,6 @@
   "mail_password": "",
   "location_enabled": false,
   "location_latitude": "",
-  "location_longitude": ""
+  "location_longitude": "",
+  "airport_code": "LFRO"
 }
