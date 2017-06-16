@@ -20,3 +20,7 @@ sleep 1
 
 # Launch svxlink
 svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.echo
+sleep 2
+
+# Enable EchoLink module
+echo "2#" > /tmp/svxlink_dtmf_ctrl_pty

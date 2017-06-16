@@ -22,5 +22,5 @@ sleep 1
 svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.frn
 sleep 2
 
-# Enable propagation monitor module
-echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+# Enable Metar Info module
+echo "5#" > /tmp/svxlink_dtmf_ctrl_pty
