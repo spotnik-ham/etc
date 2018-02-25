@@ -1,5 +1,5 @@
 {
-  "callsign": "",
+  "callsign": "5P07N1K",
   "sql_det": "GPIO",
   "ctcss_fq": "71.9",
   "default_lang": "fr_FR",
@@ -12,7 +12,7 @@
   "mail_username": "",
   "mail_password": "",
   "location_enabled": false,
-  "location_latitude": "",
-  "location_longitude": "",
+  "location_latitude": "48.32.37N",
+  "location_longitude": "3.23.44W",
   "airport_code": "LFRO"
 }

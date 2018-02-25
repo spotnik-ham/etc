@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# DTMF 99 Urgence#
+
+# Stop svxlink
+pkill -TERM svxlink
+sleep 2
+
+# Save network
+echo "urg" > /etc/spotnik/network
+
+#/etc/spotnik/audio.sh
+
+rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /etc/spotnik/Surg.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+
+rm -f /etc/spotnik/svxlink.urg
+sleep 1
+cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.urg
+
+echo "HOST=rrf.f5nlg.ovh" >>/etc/spotnik/svxlink.urg
+echo "AUTH_KEY=Magnifique123456789!" >>/etc/spotnik/svxlink.urg
+echo "PORT=5302" >>/etc/spotnik/svxlink.urg
+
+
+sleep 1
+# Clear logs
+> /tmp/svxlink.log
+
+# Launch svxlink
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.urg
+sleep 2
+
+# Enable PropagationMonitor
+echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+
+sleep 20m
+rm -f /etc/spotnik/svxlink.urg
+/etc/spotnik/restart.rrf
+

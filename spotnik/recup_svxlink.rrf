@@ -1,0 +1,46 @@
+#!/bin/bash
+
+
+# Script récuperation des valeurs du fichier svxlink.sauvegardé dans /SAUVE 
+# F1EVM & F5NLG
+# recup_svxlink.rrf
+
+
+
+infile="/SAUVE/svxlink.rrf"
+file1="test.debut"
+file2="test.fin"
+outfile="test.debut"
+
+echo '' > test.debut
+echo '' > test.fin
+
+while read -r line ; do
+
+if [ "$line" = '[ReflectorLogic]' ]
+then
+   outfile="test.fin"
+fi
+
+ctest=${line:0:1}
+
+if [ "$outfile" = "test.fin" ] && [ "$line" != '[ReflectorLogic]' ] && [ "$ctest" = "[" ]
+then
+    outfile="test.debut"
+fi
+
+if [ "$outfile" = "test.fin" ]
+then
+case ${line:0:4} in
+  HOST | AUTH) ;;
+  *) echo $line >> $outfile ;;
+esac
+else
+   echo $line >> $outfile
+fi
+
+done < $infile
+
+cat test.debut > svxlink.cfg
+cat test.fin >> svxlink.cfg
+
