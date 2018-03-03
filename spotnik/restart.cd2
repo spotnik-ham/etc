@@ -35,7 +35,7 @@ sleep 1
 
 
 # Launch svxlink
-svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --cd2ig=/etc/spotnik/svxlink.cd2
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.cd2
 sleep 1
 
 # Enable Metar Info module
