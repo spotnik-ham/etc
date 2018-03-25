@@ -37,7 +37,31 @@ sleep 1
 # Enable Metar Info module
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 
-sleep 20m
+
+# gbv250318 
+# debut gestion timer salon:
+CPTR=20
+echo $CPTR > /etc/spotnik/timerRRF;
+
+while [ $CPTR -gt 0 ] ;
+do
+
+for line in $(cat /etc/spotnik/timerRRF);
+do CPTR="$line" ; 
+done;
+
+CPTR=$(($CPTR-1));
+
+echo "$CPTR" > /etc/spotnik/timerRRF;
+sleep 1m;
+
+
+done
+# fin gestion timer salons
+
+
+
+
 rm -f /etc/spotnik/svxlink.tec
 /etc/spotnik/restart.rrf
 
