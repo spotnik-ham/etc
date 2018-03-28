@@ -42,65 +42,45 @@ echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 # debut gestion timer salon:
 echo  > /etc/spotnik/temp
 
+# CPTR correspond au nombre de minutes  max souhaitees dans le sa$
+CPTR=$((3*60));
 
-CPTR=$((2*60))
 
-finsalon=0
+ligne0=`sed -n '$p' /tmp/svxlink.log`;
+a=$(echo $ligne0 | cut -c 1-24);
+
+if ! [ -z ${lign0} ]; then
+PRNH=$(date +%s -d "$a");
+date >> /etc/spotnik/temp
+else
+date >> /etc/spotnik/temp
 
 PRMH=$(date +'%s');
-#bug data sys inferieure a derniere date svxlinklog
-PRMH=$(($PRMH+60));
-
-DRNH=$PRMH
-
-
-while [ $finsalon -eq "0" ];
+fi
+DRNH=$PRMH;
+tpsecoule=$(($PRMH-$DRNH));
+while [ $tpsecoule -le $CPTR ];
 do
- sleep 10
+#on prend seulement les 20 derniere lignes du log svxlink
+#on ne garde que les 4 premières colonnes
+#on ne conserve  au final que les lignes contenant Rx1
+tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 | grep Rx1 > /tmp/tmptim;
+ligne=`sed -n '$p' /tmp/tmptim`;
+#seule la dernière ligne Rx1 est affectée a la variableligne
 
-# on prend les 20 dernieres lignes  du log :
- tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 > /tmp/finlogsvx
-
-mkfifo fifo
- cat /tmp/finlogsvx | while  read ligne ; do
-
-# on extrait la date et lheure puis transforme en secondes
+if ! [ -z ${ligne} ]; then
  a=$(echo $ligne | cut -c 1-24);
  b=$(date +%s -d "$a");
 
-#	on regarde si l OM a emit çàd si apres date est ecrit  Tx1;
-
- if [ "$b" -ge "$PRMH" ]; then
-        txon=$(echo $ligne | cut -c 27-29);
-        if [ $txon = 'Rx1' ]; then
-                DRNH=$b;
-#	on conserve toujours la date heure la plus recente;
-        fi
+ if [ $b -ge $PRMH ]; then
+        DRNH=$b;
  fi
-
- done < fifo
-
-# combien de temps entre le passage dans le salon et la derniere emission ds ce salon
- duree=$(($DRNH-$PRMH));
-
-# on sortira du salon quand le temps apres derniere emission ds ce salon vaudra CPTR
-
- if [ $duree -ge $CPTR ]; then
-  finsalon=1;
- fi
-
-# s il ne s est rien passe pdt les CPTR dernieres minutes arpes le dernier tx
-# çàd  pas de ligne suppl dans le log
- ACTH=$(date +'%s');
-
- tpsecoule=$(($ACTH-$DRNH));
-
- if [ $duree -le 0 ] && [ $tpsecoule -ge $CPTR ]; then
-   finsalon=1;
- fi
-
+fi
+sleep 10;
+ACTH=$(date +'%s');
+tpsecoule=$(($ACTH-$DRNH));
+echo tpsecoule $tpsecoule CPTR $CPTR >>  /etc/spotnik/temp
 done
-
 
 # f4gbv 260318 fin gestion timer salons
 
