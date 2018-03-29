@@ -44,7 +44,10 @@ sleep 2
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 
 # wait before returning on master network in sec.
-sleep 20m
+
+# debut gestion timer salon:
+sh /etc/spotnik/timersalon.sh
+
 rm -f /etc/spotnik/svxlink.fon
 # retunr to master network
 /etc/spotnik/restart.rrf

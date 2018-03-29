@@ -33,3 +33,5 @@ sleep 1
 # Enable ModuleParrot
 echo "1#" > /tmp/svxlink_dtmf_ctrl_pty
 
+# debut gestion timer salon:
+sh /etc/spotnik/timersalon.sh

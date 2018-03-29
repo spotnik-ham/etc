@@ -24,7 +24,9 @@ sleep 1
 # Enable EchoLink 
 echo "2#" > /tmp/svxlink_dtmf_ctrl_pty
 
-sleep 20m
+# debut gestion timer salon:
+sh /etc/spotnik/timersalon.sh
+
 
 /etc/spotnik/restart.rrf
 

@@ -35,13 +35,15 @@ sleep 1
 
 
 # Launch svxlink
-svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.cd2
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --cd2ig=/etc/spotnik/svxlink.cd2
 sleep 1
 
 # Enable Metar Info module
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 
-sleep 20m
+# debut gestion timer salon:
+sh /etc/spotnik/timersalon.sh
+
 rm -f /etc/svxlink.cd2
 /etc/spotnik/restart.rrf
 
