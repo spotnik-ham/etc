@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# DTMF 98#
+
+# Stop svxlink
+pkill -TERM svxlink
+sleep 2
+
+# Save network
+echo "tec" > /etc/spotnik/network
+
+#/etc/spotnik/audio.sh
+
+rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /etc/spotnik/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+
+
+# Clear logs
+> /tmp/svxlink.log
+
+rm -f /etc/spotnik/svxlink.tec
+
+
+sleep 1
+cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.tec
+
+echo "HOST=rrf.f5nlg.ovh" >>/etc/spotnik/svxlink.tec
+echo "AUTH_KEY=Magnifique123456789!" >>/etc/spotnik/svxlink.tec
+echo "PORT=5301" >>/etc/spotnik/svxlink.tec
+
+sleep 1
+
+# Launch svxlink
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.tec
+sleep 1
+
+# Enable Metar Info module
+echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+
+
+
+# debut gestion timer salon:
+sh /etc/spotnik/timersalon.sh
+
+
+
+rm -f /etc/spotnik/svxlink.tec
+/etc/spotnik/restart.rrf
+
