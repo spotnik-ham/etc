@@ -11,7 +11,7 @@ CPTR=$((3*60));
 ligne0=`sed -n '$p' /tmp/svxlink.log`;
 a=$(echo $ligne0 | cut -c 1-24);
 
-if ! [ -z ${lign0} ]; then
+if ! [ -z "$lign0" ]; then
 PRNH=$(date +%s -d "$a");
 date >> /etc/spotnik/temp
 else
@@ -30,7 +30,9 @@ tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 | grep Rx1 > /tmp/tmptim;
 ligne=`sed -n '$p' /tmp/tmptim`;
 #seule la dernière ligne Rx1 est affectée a la variableligne
 
-if ! [ -z ${ligne} ]; then
+if [ -z "$ligne" ]; then
+	echo . > null;
+else
  a=$(echo $ligne | cut -c 1-24);
  b=$(date +%s -d "$a");
 
