@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# DTMF 99#
+
+# Stop svxlink
+pkill -TERM svxlink
+sleep 2
+
+# Save network
+echo "echo" > /etc/spotnik/network
+
+# Set audio levels
+amixer -c 0 cset numid=6 78%
+sleep 1
+amixer -c 0 cset numid=4 12%
+sleep 1
+
+# Clear logs
+> /tmp/svxlink.log
+
+# Launch svxlink
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.echo
+sleep 2
+
+# Enable EchoLink module
+echo "2#" > /tmp/svxlink_dtmf_ctrl_pty
