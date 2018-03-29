@@ -1,0 +1,112 @@
+#!/bin/bash
+
+# DTMF 98#
+
+# Stop svxlink
+pkill -TERM svxlink
+sleep 2
+
+# Save network
+echo "tec" > /etc/spotnik/network
+
+#/etc/spotnik/audio.sh
+
+rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /etc/spotnik/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+
+
+# Clear logs
+> /tmp/svxlink.log
+
+rm -f /etc/spotnik/svxlink.tec
+
+
+sleep 1
+cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.tec
+
+echo "HOST=rrf.f5nlg.ovh" >>/etc/spotnik/svxlink.tec
+echo "AUTH_KEY=Magnifique123456789!" >>/etc/spotnik/svxlink.tec
+echo "PORT=5301" >>/etc/spotnik/svxlink.tec
+
+sleep 1
+
+# Launch svxlink
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.tec
+sleep 1
+
+# Enable Metar Info module
+echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+
+
+# gbv260318 
+# debut gestion timer salon:
+echo  > /etc/spotnik/temp
+
+
+CPTR=$((2*60))
+
+finsalon=0
+
+PRMH=$(date +'%s');
+#bug data sys inferieure a derniere date svxlinklog
+PRMH=$(($PRMH+60));
+
+DRNH=$PRMH
+
+
+while [ $finsalon -eq "0" ];
+do
+ sleep 10
+
+# on prend les 20 dernieres lignes  du log :
+ tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 > /tmp/finlogsvx
+
+mkfifo fifo
+ cat /tmp/finlogsvx | while  read ligne ; do
+
+# on extrait la date et lheure puis transforme en secondes
+ a=$(echo $ligne | cut -c 1-24);
+ b=$(date +%s -d "$a");
+
+#	on regarde si l OM a emit çàd si apres date est ecrit  Tx1;
+
+ if [ "$b" -ge "$PRMH" ]; then
+        txon=$(echo $ligne | cut -c 27-29);
+        if [ $txon = 'Rx1' ]; then
+                DRNH=$b;
+#	on conserve toujours la date heure la plus recente;
+        fi
+ fi
+
+ done < fifo
+
+# combien de temps entre le passage dans le salon et la derniere emission ds ce salon
+ duree=$(($DRNH-$PRMH));
+
+# on sortira du salon quand le temps apres derniere emission ds ce salon vaudra CPTR
+
+ if [ $duree -ge $CPTR ]; then
+  finsalon=1;
+ fi
+
+# s il ne s est rien passe pdt les CPTR dernieres minutes arpes le dernier tx
+# çàd  pas de ligne suppl dans le log
+ ACTH=$(date +'%s');
+
+ tpsecoule=$(($ACTH-$DRNH));
+
+ if [ $duree -le 0 ] && [ $tpsecoule -ge $CPTR ]; then
+   finsalon=1;
+ fi
+
+done
+
+
+# f4gbv 260318 fin gestion timer salons
+
+
+
+
+rm -f /etc/spotnik/svxlink.tec
+/etc/spotnik/restart.rrf
+

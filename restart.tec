@@ -38,9 +38,13 @@ sleep 1
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 
 
-
+# gbv260318 
 # debut gestion timer salon:
+echo  lancescript> /etc/spotnik/temp
 sh /etc/spotnik/timersalon.sh
+echo retour >> /etc/spotnik/temp
+# f4gbv 260318 fin gestion timer salons
+
 
 
 
