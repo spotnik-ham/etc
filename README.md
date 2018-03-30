@@ -17,7 +17,7 @@ for user documentation please refer to the [spotnik documentation]
 ```
 ssh spotnik
 cd /etc
-git clone https://github.com/spotnik-ham/etc.git
+git clone https://github.com/spotnik-ham/etc.git /etc/spotnik
 
 ```
 
@@ -26,7 +26,7 @@ git clone https://github.com/spotnik-ham/etc.git
 ```
 ssh spotnik
 cd /etc
-git pull
+git clone https://github.com/spotnik-ham/etc.git /etc/spotnik
 
 ```
 
