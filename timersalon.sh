@@ -2,23 +2,25 @@
 
 # gbv260318 
 # debut gestion timer salon:
-echo  > /etc/spotnik/temp
+echo  > /tmp/timtmp
 
 # CPTR correspond au nombre de minutes  max souhaitees dans le sa$
 CPTR=$((3*60));
 
 
 ligne0=`sed -n '$p' /tmp/svxlink.log`;
-a=$(echo $ligne0 | cut -c 1-24);
+# a=$(echo $ligne0 | cut -c 1-23);
+ a=$(echo $ligne0 | cut -d ":" -f1,2,3);
+
 
 if ! [ -z "$lign0" ]; then
-PRNH=$(date +%s -d "$a");
-date >> /etc/spotnik/temp
+PRMH=$(date +%s -d "$a");
 else
-date >> /etc/spotnik/temp
-
 PRMH=$(date +'%s');
 fi
+
+date >> /tmp/timtmp
+
 DRNH=$PRMH;
 tpsecoule=$(($PRMH-$DRNH));
 while [ $tpsecoule -le $CPTR ];
@@ -33,7 +35,9 @@ ligne=`sed -n '$p' /tmp/tmptim`;
 if [ -z "$ligne" ]; then
 	echo . > null;
 else
- a=$(echo $ligne | cut -c 1-24);
+# a=$(echo $ligne | cut -c 1-23);
+ a=$(echo $ligne | cut -d ":" -f1,2,3);
+
  b=$(date +%s -d "$a");
 
  if [ $b -ge $PRMH ]; then
@@ -43,7 +47,8 @@ fi
 sleep 10;
 ACTH=$(date +'%s');
 tpsecoule=$(($ACTH-$DRNH));
-echo tpsecoule $tpsecoule CPTR $CPTR >>  /etc/spotnik/temp
+echo tpsecoule $tpsecoule CPTR $CPTR >>  /tmp/timtmp
 done
+date >> /tmp/timtmp
 
 # f4gbv 260318 fin gestion timer salons
