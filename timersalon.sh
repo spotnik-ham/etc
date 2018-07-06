@@ -52,3 +52,10 @@ done
 date >> /tmp/timtmp
 
 # f4gbv 260318 fin gestion timer salons
+
+
+
+reseau=`sed -n '$p' /etc/spotnik/network`
+rm -f /etc/spotnik/svxlink.$reseau
+/etc/spotnik/restart.rrf
+
