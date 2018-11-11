@@ -5,7 +5,7 @@
 echo  > /tmp/timtmp
 
 # CPTR correspond au nombre de minutes  max souhaitees dans le sa$
-CPTR=$((3*60));
+CPTR=$((5*60));
 
 
 ligne0=`sed -n '$p' /tmp/svxlink.log`;
@@ -27,10 +27,10 @@ while [ $tpsecoule -le $CPTR ];
 do
 #on prend seulement les 20 derniere lignes du log svxlink
 #on ne garde que les 4 premières colonnes
-#on ne conserve  au final que les lignes contenant Rx1
-tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 | grep Rx1 > /tmp/tmptim;
+#on ne conserve  au final que les lignes contenant Tx1
+tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 | grep Tx1 > /tmp/tmptim;
 ligne=`sed -n '$p' /tmp/tmptim`;
-#seule la dernière ligne Rx1 est affectée a la variableligne
+#seule la dernière ligne Tx1 est affectée a la variableligne
 
 if [ -z "$ligne" ]; then
 	echo . > null;
