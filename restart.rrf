@@ -27,6 +27,7 @@ echo "PORT=5300" >>/etc/spotnik/svxlink.rrf
 sleep 1
 
 # Clear logs
+sh ./conserve_log.sh /tmp/svxlink.log
 > /tmp/svxlink.log
 
 # Launch svxlink
