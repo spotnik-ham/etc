@@ -26,9 +26,12 @@ if [ -f "$1" ]; then
 		if ! [ -f "$1$dDateJour~" ]; then
 			cp $1 $1`date +"%y%m%d"`~;
 			sArchive="archivage effectué avec succès";
+		else
+			#complement a l archive du jour:
+			cat $1 >> $1`date +"%y%m%d"`~;
 		fi
 		ligne=`ls -lr $1??????~ | tail -1 | tail -c8`
-		ligne1=${ligne:0:6}
+		ligne1=${#ligne:0:6}
 		dDateValide=$(date -d "$ligne1" +'%s')
 	else
 		# au cas où on a oublié de mettre le nom de fichier en argument :	
