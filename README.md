@@ -8,6 +8,12 @@ This part contains .sh and configurations files for the spotnik HAM radio/intern
 
 for user documentation please refer to the [spotnik documentation]
 
+## 1ST très important et dépendant de l'architecture 
+
+il faut avoir une connection wifi fonctionnel dans /etc/NetworkManager/system-connections
+peut importe son nom, il faut la renommer en SPOTNIK en majuscule pour que la configuration faite par l'interface graphique
+gui fonctionne correctement .
+
 
 
 ## Production
