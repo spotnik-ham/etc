@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# DTMF 98#
+# DTMF 98# TECHNIQUE
 
 # Stop svxlink
 pkill -TERM svxlink
@@ -12,14 +12,13 @@ echo "tec" > /etc/spotnik/network
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 ln -s /etc/spotnik/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
-
 # Clear logs
 > /tmp/svxlink.log
 
 rm -f /etc/spotnik/svxlink.tec
 
-
 sleep 1
+
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.tec
 
 echo "HOST=rrf.f5nlg.ovh" >>/etc/spotnik/svxlink.tec
@@ -36,8 +35,5 @@ sleep 1
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 
 # debut gestion timer salon:
-sh /etc/spotnik/timersalon.sh
-
-rm -f /etc/spotnik/svxlink.tec
-/etc/spotnik/restart.rrf
-
+pkill -f timersalon
+sh /etc/spotnik/timersalon.sh &

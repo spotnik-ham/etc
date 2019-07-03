@@ -25,7 +25,5 @@ sleep 1
 echo "2#" > /tmp/svxlink_dtmf_ctrl_pty
 
 # debut gestion timer salon:
-sh /etc/spotnik/timersalon.sh
-
-/etc/spotnik/restart.rrf
-
+pkill -f timersalon
+sh /etc/spotnik/timersalon.sh &

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# DTMF 101#
+# DTMF 101# LOCAL
 
 # Stop svxlink
 pkill -TERM svxlink
@@ -10,15 +10,13 @@ sleep 2
 echo "loc" > /etc/spotnik/network
 
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
-
 ln -s /etc/spotnik/Sloc.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
-
 
 # Clear logs
 > /tmp/svxlink.log
 
-
 rm -f /etc/spotnik/svxlink.loc
+
 sleep 1
 
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.loc
@@ -27,9 +25,7 @@ echo "HOST=fon.f1tzo.com" >>/etc/spotnik/svxlink.loc
 echo "AUTH_KEY=FON-F1TZO" >>/etc/spotnik/svxlink.loc
 echo "PORT=5302" >>/etc/spotnik/svxlink.loc
 
-
 sleep 1
-
 
 # Launch svxlink
 svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.loc
@@ -39,8 +35,5 @@ sleep 1
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
 
 # debut gestion timer salon:
-sh /etc/spotnik/timersalon.sh
-
-rm -f /etc/svxlink.loc
-/etc/spotnik/restart.rrf
-
+pkill -f timersalon
+sh /etc/spotnik/timersalon.sh &
