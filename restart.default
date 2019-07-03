@@ -9,8 +9,6 @@ sleep 2
 # Save network
 echo "default" > /etc/spotnik/network
 
-#/etc/spotnik/audio.sh
-
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
 ln -s /etc/spotnik/name.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
@@ -33,5 +31,4 @@ sleep 1
 # Enable ModuleParrot
 echo "1#" > /tmp/svxlink_dtmf_ctrl_pty
 
-# debut gestion timer salon:
-sh /etc/spotnik/timersalon.sh
+# sh /etc/spotnik/timersalon.sh

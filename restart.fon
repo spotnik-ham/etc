@@ -9,9 +9,6 @@ sleep 2
 # Save network
 echo "fon" > /etc/spotnik/network
 
-
-#/etc/spotnik/audio.sh
-
 #change the audio network name
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 ln -s /etc/spotnik/Sfon.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
@@ -34,16 +31,12 @@ sleep 1
 # Clear logs
 > /tmp/svxlink.log
 
-#echo "spotnik.network(fon)" > /tmp/svxlink.log
-
 # Launch svxlink
 svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.fon
 sleep 2
 
 # Enable propagation monitor module
 echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
-
-# wait before returning on master network in sec.
 
 # debut gestion timer salon:
 sh /etc/spotnik/timersalon.sh

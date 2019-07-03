@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# DTMF 102 SAT #
+
+# Stop svxlink
+pkill -TERM svxlink
+sleep 2
+
+# Save network
+echo "sat" > /etc/spotnik/network
+
+rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+
+ln -s /etc/spotnik/Ssat.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+
+rm -f /etc/spotnik/svxlink.sat
+
+sleep 1
+cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.sat
+
+echo "HOST=rrf2.f5nlg.ovh" >>/etc/spotnik/svxlink.sat
+echo "AUTH_KEY=Magnifique123456789!" >>/etc/spotnik/svxlink.sat
+echo "PORT=5301" >>/etc/spotnik/svxlink.sat
+
+
+sleep 1
+
+# Clear logs
+> /tmp/svxlink.log
+
+# Launch svxlink
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.sat
+sleep 1
+
+# Enable propagation monitor module
+echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+

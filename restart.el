@@ -15,7 +15,7 @@ echo "el" > /etc/spotnik/network
 sleep 1
 
 # Clear logs
-> /tmp/svxlink.log
+#> /tmp/svxlink.log
 
 # Launch svxlink
 svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.echo
@@ -26,7 +26,6 @@ echo "2#" > /tmp/svxlink_dtmf_ctrl_pty
 
 # debut gestion timer salon:
 sh /etc/spotnik/timersalon.sh
-
 
 /etc/spotnik/restart.rrf
 
