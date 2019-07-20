@@ -15,20 +15,28 @@ peut importe son nom, il faut la renommer en SPOTNIK en majuscule pour que la co
 gui fonctionne correctement .
 
 ## /etc/rc.local 
-echo "7" > /sys/class/gpio/export 
+echo "7" > /sys/class/gpio/export
+
 sleep 2
+
 echo out > /sys/class/gpio/gpio7/direction
 
 echo "10" > /sys/class/gpio/export 
+
 sleep 2
+
 echo in > /sys/class/gpio/gpio10/direction
 
 echo "6" > /sys/class/gpio/export 
+
 sleep 2
+
 echo out > /sys/class/gpio/gpio6/direction
 
 echo "2" > /sys/class/gpio/export 
+
 sleep 2
+
 echo in > /sys/class/gpio/gpio2/direction
 
 sleep 4
