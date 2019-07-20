@@ -21,7 +21,7 @@ sleep 1
 
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.loc
 
-echo "HOST=fon.f1tzo.com" >>/etc/spotnik/svxlink.loc
+echo "HOST=serveur.f1tzo.com" >>/etc/spotnik/svxlink.loc
 echo "AUTH_KEY=FON-F1TZO" >>/etc/spotnik/svxlink.loc
 echo "PORT=5302" >>/etc/spotnik/svxlink.loc
 

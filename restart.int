@@ -21,9 +21,10 @@ sleep 1
 
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.int
 
-echo "HOST=rrf.f5nlg.ovh" >>/etc/spotnik/svxlink.int
+echo "HOST=rrf3.f5nlg.ovh" >>/etc/spotnik/svxlink.int
 echo "AUTH_KEY=Magnifique123456789!" >>/etc/spotnik/svxlink.int
 echo "PORT=5302" >>/etc/spotnik/svxlink.int
+
 
 sleep 1
 

@@ -18,10 +18,9 @@ rm -f /etc/spotnik/svxlink.sat
 sleep 1
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.sat
 
-echo "HOST=rrf2.f5nlg.ovh" >>/etc/spotnik/svxlink.sat
+echo "HOST=rrf3.f5nlg.ovh" >>/etc/spotnik/svxlink.sat
 echo "AUTH_KEY=Magnifique123456789!" >>/etc/spotnik/svxlink.sat
-echo "PORT=5301" >>/etc/spotnik/svxlink.sat
-
+echo "PORT=5303" >>/etc/spotnik/svxlink.sat
 
 sleep 1
 
