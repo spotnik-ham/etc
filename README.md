@@ -14,6 +14,33 @@ il faut avoir une connection wifi fonctionnel dans /etc/NetworkManager/system-co
 peut importe son nom, il faut la renommer en SPOTNIK en majuscule pour que la configuration faite par l'interface graphique
 gui fonctionne correctement .
 
+## /etc/rc.local 
+echo "7" > /sys/class/gpio/export &
+sleep 2
+echo out > /sys/class/gpio/gpio7/direction
+
+echo "10" > /sys/class/gpio/export &
+sleep 2
+echo in > /sys/class/gpio/gpio10/direction
+
+echo "6" > /sys/class/gpio/export &
+sleep 2
+echo out > /sys/class/gpio/gpio6/direction
+
+echo "2" > /sys/class/gpio/export &
+sleep 2
+echo in > /sys/class/gpio/gpio2/direction
+
+sleep 4
+
+/etc/spotnik/restart
+
+sleep 2
+cd /opt/spotnik/gui
+
+make start 
+
+exit 0
 
 
 ## Production
