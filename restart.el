@@ -18,7 +18,7 @@ sleep 1
 #> /tmp/svxlink.log
 
 # Launch svxlink
-svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.echo
+svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --runasuser=root --config=/etc/spotnik/svxlink.el
 sleep 1
 
 # Enable EchoLink 
