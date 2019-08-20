@@ -3,8 +3,11 @@
 # DTMF 101# LOCAL
 
 # Stop svxlink
-pkill -TERM svxlink
-sleep 2
+if pgrep -x svxlink >/dev/null
+then
+    pkill -TERM svxlink
+    pkill -f timersalon
+fi
 
 # Save network
 echo "loc" > /etc/spotnik/network
@@ -32,7 +35,8 @@ svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --run
 sleep 1
 
 # Enable Metar Info module
-echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+echo "10#" > /tmp/dtmf_uhf
+echo "10#" > /tmp/dtmf_vhf
 
 # debut gestion timer salon:
 pkill -f timersalon

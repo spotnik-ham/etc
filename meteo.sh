@@ -1,2 +1,3 @@
 ## meteo.sh
-echo "*51#"> /tmp/svxlink_dtmf_ctrl_pty
+echo "*51#"> /tmp/dtmf_uhf
+echo "*51#"> /tmp/dtmf_vhf

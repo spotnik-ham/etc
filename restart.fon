@@ -1,10 +1,12 @@
 #!/bin/bash
-
 # DTMF 97 FON #
 
 # Stop svxlink
-pkill -TERM svxlink
-sleep 2
+if pgrep -x svxlink >/dev/null
+then
+    pkill -TERM svxlink
+    pkill -f timersalon
+fi
 
 # Save network
 echo "fon" > /etc/spotnik/network
@@ -13,8 +15,7 @@ echo "fon" > /etc/spotnik/network
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 ln -s /etc/spotnik/Sfon.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
-# create svxlink.conf
-
+# create svxlink.fon
 rm -f /etc/spotnik/svxlink.fon
 sleep 1
 
@@ -34,7 +35,8 @@ svxlink --daemon --logfile=/tmp/svxlink.log --pidfile=/var/run/svxlink.pid --run
 sleep 2
 
 # Enable propagation monitor module
-echo "10#" > /tmp/svxlink_dtmf_ctrl_pty
+echo "10#" > /tmp/dtmf_uhf
+echo "10#" > /tmp/dtmf_vhf
 
 # debut gestion timer salon:
 pkill -f timersalon
