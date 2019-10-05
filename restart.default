@@ -22,7 +22,9 @@ sleep 1
 
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.conf
 
-sleep 1
+sed -i "/^\[SimplexLogic\]/,/^\[/ s/^MODULES=\(.*\)/\0,ModuleParrot/" svxlink.conf > /dev/null 2>&1
+
+sleep 2
 
 # Clear logs
 > /tmp/svxlink.log
