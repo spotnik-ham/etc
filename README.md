@@ -11,7 +11,8 @@ for user documentation please refer to the [spotnik documentation]
 
 il faut avoir une connection wifi fonctionnel dans /etc/NetworkManager/system-connections
 peut importe son nom, il faut la renommer en SPOTNIK en majuscule pour que la configuration faite par l'interface graphique
-gui fonctionne correctement .
+GUI fonctionne correctement. 
+Pour l'installer voir le repository https://github.com/spotnik-ham/etc_NetworkManager_system-connections
 
 ## /etc/rc.local 
 ```
