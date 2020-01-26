@@ -22,7 +22,7 @@ sleep 1
 
 cat /etc/spotnik/svxlink.cfg >/etc/spotnik/svxlink.conf
 
-sed -i "/^\[SimplexLogic\]/,/^\[/ s/^MODULES=\(.*\)/\0,ModuleParrot/" svxlink.conf > /dev/null 2>&1
+sed -i "/^\[SimplexLogic\]/,/^\[/ s/^MODULES=\(.*\)/\0,ModuleParrot/" /etc/spotnik/svxlink.conf > /dev/null 2>&1
 
 sleep 2
 
