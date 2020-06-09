@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # DTMF 102#
+# stop numeric mode
+/etc/spontnik/num.sh stop
+pkill -f svxbridge.py
 
 # Stop svxlink
 if pgrep -x svxlink >/dev/null
@@ -8,6 +11,13 @@ then
     pkill -TERM svxlink
     pkill -f timersalon
 fi
+
+# stop vncserver
+if pgrep -x Xtightvnc >/dev/null
+then
+    pkill -TERM vncserver:1
+fi
+
 
 # Save network
 echo "el" > /etc/spotnik/network

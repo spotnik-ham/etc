@@ -1,5 +1,9 @@
 #!/bin/bash
 # DTMF 97 FON #
+# stop numeric modes 
+/etc/spotnik/num.sh stop
+pkill -f svxbridge.py
+
 
 # Stop svxlink
 if pgrep -x svxlink >/dev/null
@@ -8,12 +12,18 @@ then
     pkill -f timersalon
 fi
 
+# stop vncserver
+if pgrep -x Xtightvnc >/dev/null
+then
+    pkill -TERM vncserver:1
+fi
+
 # Save network
 echo "fon" > /etc/spotnik/network
 
 #change the audio network name
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
-ln -s /etc/spotnik/Sfon.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /usr/share/svxlink/sounds/fr_FR/RRF/Sfon.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
 # create svxlink.fon
 rm -f /etc/spotnik/svxlink.fon

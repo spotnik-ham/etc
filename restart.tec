@@ -1,6 +1,8 @@
 #!/bin/bash
-
 # DTMF 98# TECHNIQUE
+# stop numeric modes 
+/etc/spotnik/num.sh stop
+pkill -f svxbridge.py
 
 # Stop svxlink
 
@@ -9,11 +11,18 @@ then
 pkill -TERM svxlink
 fi
 
+# stop vncserver
+if pgrep -x Xtightvnc >/dev/null
+then
+    pkill -TERM vncserver:1
+fi
+
+
 # Save network
 echo "tec" > /etc/spotnik/network
 
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
-ln -s /etc/spotnik/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /usr/share/svxlink/sounds/fr_FR/RRF/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
 # Clear logs
 > /tmp/svxlink.log

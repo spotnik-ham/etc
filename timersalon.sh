@@ -1,56 +1,100 @@
-#!/bin/bash
+#!/bin/sh
+#
+# Perform return to RRF after timeout  
+# F4HWN Armel
+#
 
-# gbv260318 4hwn280619
-# debut gestion timer salon:
-echo  > /tmp/timtmp
+# Set timeout in seconds
 
-# CPTR correspond au nombre de minutes  max souhaitees dans le sa$
-CPTR=$((6*60));
-
-ligne0=`sed -n '$p' /tmp/svxlink.log`;
-# a=$(echo $ligne0 | cut -c 1-23);
- a=$(echo $ligne0 | cut -d ":" -f1,2,3);
-
-
-if ! [ -z "$lign0" ]; then
-PRMH=$(date +%s -d "$a");
+if [ $# -eq 0 ]
+then
+    timeout=360
 else
-PRMH=$(date +'%s');
+    timeout=$1
 fi
 
-date >> /tmp/timtmp
+# Init other values (don't touch)
 
-DRNH=$PRMH;
-tpsecoule=$(($PRMH-$DRNH));
+last=`date +%s`
+timer=0
+talker_start=0
+talker_stop=`date +%s`
+log='/tmp/timersalon.log' 
 
-while [ $tpsecoule -le $CPTR ];
-do
-#on prend seulement les 20 derniere lignes du log svxlink
-#on ne garde que les 4 premières colonnes
-#on ne conserve  au final que les lignes contenant Rx1
-tail -20 /tmp/svxlink.log | cut -d: -f1,2,3,4 | grep Tx1 > /tmp/tmptim;
-ligne=`sed -n '$p' /tmp/tmptim`;
-#seule la dernière ligne Rx1 est affectée a la variableligne
+# Start log
 
-if [ -z "$ligne" ]; then
-	echo . > null;
-else
-# a=$(echo $ligne | cut -c 1-23);
- a=$(echo $ligne | cut -d ":" -f1,2,3);
+cat << EOF > $log
+Start QSY at        : `date +'%d-%m-%Y %H:%M:%S' -d @$last` ($last)
+--------------------
+EOF
 
- b=$(date +%s -d "$a");
+# Main loop
 
- if [ $b -ge $PRMH ]; then
-        DRNH=$b;
- fi
-fi
-sleep 10;
-ACTH=$(date +'%s');
-tpsecoule=$(($ACTH-$DRNH));
-echo tpsecoule $tpsecoule CPTR $CPTR >>  /tmp/timtmp
+while [ $timer -lt $timeout ]; do
+    # Standby
+    sleep 10
+
+    # Catch last Talker start (if exist)
+
+    tmp=`grep 'ReflectorLogic: Talker start:' /tmp/svxlink.log | tail -1 | cut -c1-24`
+    if [ ! -z "$tmp" ]
+    then
+        talker_start=`date -d "$tmp" +%s`
+    fi
+
+    # Catch last Talker stop (if exist)
+
+    tmp=`grep 'ReflectorLogic: Talker stop:' /tmp/svxlink.log | tail -1 | cut -c1-24`
+    if [ ! -z "$tmp" ]
+    then
+        talker_stop=`date -d "$tmp" +%s`
+    fi
+
+    # If last Talker start > last Talker stop, then somebody is speaking so
+    #   last activity is now
+    # Else
+    #   last activity was at last Talker stop... 
+
+    if [ $talker_start -gt $talker_stop ]
+    then
+        last=`date +%s`
+        trace=false
+    else
+        last=$talker_stop
+        trace=true
+    fi
+
+    now=`date +%s`
+
+    timer=$(($now-$last))
+
+    # Write trace for debug, only if trace is true (nobody speaking...)
+
+    if [ "$trace" = true ]
+    then
+
+cat << EOF >> $log
+Last Talker Start   : `date +'%d-%m-%Y %H:%M:%S' -d @$talker_start` ($talker_start)
+Last Talker Stop    : `date +'%d-%m-%Y %H:%M:%S' -d @$talker_stop` ($talker_stop)
+Last Radio Activity : `date +'%d-%m-%Y %H:%M:%S' -d @$last` ($last)
+Timout              : $timeout seconds
+Timer               : $timer seconds
+--------------------
+EOF
+    else
+
+cat << EOF > $log
+Last QSO active at  : `date +'%d-%m-%Y %H:%M:%S' -d @$now` ($now)
+--------------------
+EOF
+
+    fi
 done
-date >> /tmp/timtmp
 
-# f4gbv 260318 fin gestion timer salons
-# f4hwn 280619 retour sur le RRF
+# Return to RRF
+
+cat << EOF >> $log
+Return to RRF at    : `date +'%d-%m-%Y %H:%M:%S' -d @$now` ($now)
+EOF
+
 /etc/spotnik/restart.rrf

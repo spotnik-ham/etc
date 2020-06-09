@@ -1,5 +1,5 @@
 {
-  "callsign": "5P07N1K",
+  "callsign": "F5NLG",
   "sql_det": "GPIO",
   "ctcss_fq": "71.9",
   "default_lang": "fr_FR",
@@ -16,11 +16,15 @@
   "location_longitude": "3.23.44W",
   "airport_code": "LFRO",
   "Departement": "22",
-  "band_type": "T",
+  "band_type": "S",
   "wifi_ssid": "BOX",
   "wpa_key": "0000000001",
-  "tx_qrg": "432.975",
-  "rx_qrg": "432.975",
+  "tx_qrg": "430.975",
+  "rx_qrg": "430.975",
   "sql_lvl": "2",
-  "lSA818": "No"
+  "lSA818": "No",
+  "master_ip_bm": "164.132.195.103",
+  "iddmr7": "2080421",
+  "iddmr9": "208042103",
+  "port_hb": ""
 }
