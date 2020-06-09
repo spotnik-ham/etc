@@ -56,7 +56,7 @@ exit 0
 ```
 ssh spotnik
 cd /etc
-git clone https://github.com/spotnik-ham/etc.git spotnik
+git clone --single-branch --branch Version_4 https://github.com/spotnik-ham/etc.git spotnik
 
 ```
 
