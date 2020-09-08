@@ -13,7 +13,7 @@ fi
 echo "tec" > /etc/spotnik/network
 
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
-ln -s /etc/spotnik/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /usr/share/svxlink/sounds/fr_FR/RRF/Stec.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
 # Clear logs
 > /tmp/svxlink.log

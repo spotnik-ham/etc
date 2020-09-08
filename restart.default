@@ -14,7 +14,7 @@ echo "default" > /etc/spotnik/network
 
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
-ln -s /etc/spotnik/name.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /usr/share/svxlink/sounds/fr_FR/RRF/name.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
 
 rm -f /etc/spotnik/svxlink.conf

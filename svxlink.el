@@ -10,7 +10,7 @@ STATE_PTY=/tmp/state_pty
 TYPE=Simplex
 RX=Rx1
 TX=Tx1
-MODULES=ModuleHelp,ModuleMetarInfo,ModulePropagationMonitor,ModuleEchoLink,ModuleParrot
+MODULES=ModuleHelp,ModuleMetarInfo,ModulePropagationMonitor,ModuleEchoLink
 CALLSIGN=5P07N1K
 LONG_IDENT_INTERVAL=60
 SHORT_IDENT_INTERVAL=15
@@ -88,5 +88,5 @@ ANTENNA_DIR=-1
 PATH=WIDE1-1
 BEACON_INTERVAL=10
 TONE=71
-COMMENT=>>> SpotNik V3.0 <<<<<
+COMMENT=>>> SpotNik V3.1 <<<<<
 

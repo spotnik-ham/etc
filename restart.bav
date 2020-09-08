@@ -13,7 +13,7 @@ fi
 echo "bav" > /etc/spotnik/network
 
 rm /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
-ln -s /etc/spotnik/Sbav.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
+ln -s /usr/share/svxlink/sounds/fr_FR/RRF/Sbav.wav /usr/share/svxlink/sounds/fr_FR/PropagationMonitor/name.wav
 
 # Clear logs
 > /tmp/svxlink.log

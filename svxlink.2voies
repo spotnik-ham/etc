@@ -164,7 +164,7 @@ ANTENNA_DIR=-1
 PATH=WIDE1-1
 BEACON_INTERVAL=10
 TONE=71
-COMMENT=>>> SpotNik V3.A <<<<<
+COMMENT=>>> SpotNik V3.1 <<<<<
 
 [ReflectorLogic]
 TYPE=Reflector
